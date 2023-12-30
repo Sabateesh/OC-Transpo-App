@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02244A242B3DB8E5007597CD /* AppleMapsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02244A232B3DB8E5007597CD /* AppleMapsView.swift */; };
 		02432EB429E24EA9006B8256 /* GoogleMapsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02432EB329E24EA9006B8256 /* GoogleMapsView.swift */; };
 		02432EB829E27EA3006B8256 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02432EB729E27EA3006B8256 /* AppDelegate.swift */; };
 		02C43CFB29DBA70C0009E194 /* OCTranspoBusScheduleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C43CFA29DBA70C0009E194 /* OCTranspoBusScheduleApp.swift */; };
@@ -20,7 +21,6 @@
 		02C43D2929DBA7C20009E194 /* BusScheduleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C43D2829DBA7C20009E194 /* BusScheduleViewModel.swift */; };
 		02C43D2C29DBD7C60009E194 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C43D2B29DBD7C60009E194 /* LocationManager.swift */; };
 		02C43D2E29DCBC8C0009E194 /* RoutePlannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C43D2D29DCBC8C0009E194 /* RoutePlannerView.swift */; };
-		02C43D3029DCC0ED0009E194 /* RoutePlannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C43D2F29DCC0ED0009E194 /* RoutePlannerViewModel.swift */; };
 		02C43D3629E118010009E194 /* HomeView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C43D3529E118010009E194 /* HomeView2.swift */; };
 		02C43D3829E1198C0009E194 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C43D3729E1198C0009E194 /* MainTabView.swift */; };
 		10CDF87DA881F0D40DD97106 /* Pods_OCTranspoBusSchedule_OCTranspoBusScheduleUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 918C3FE00D604F4EFF577C7E /* Pods_OCTranspoBusSchedule_OCTranspoBusScheduleUITests.framework */; };
@@ -46,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		02244A232B3DB8E5007597CD /* AppleMapsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMapsView.swift; sourceTree = "<group>"; };
 		02432EB329E24EA9006B8256 /* GoogleMapsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsView.swift; sourceTree = "<group>"; };
 		02432EB729E27EA3006B8256 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		02C43CF729DBA70C0009E194 /* OCTranspoBusSchedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OCTranspoBusSchedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,7 +64,6 @@
 		02C43D2A29DBA8B20009E194 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		02C43D2B29DBD7C60009E194 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		02C43D2D29DCBC8C0009E194 /* RoutePlannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePlannerView.swift; sourceTree = "<group>"; };
-		02C43D2F29DCC0ED0009E194 /* RoutePlannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePlannerViewModel.swift; sourceTree = "<group>"; };
 		02C43D3529E118010009E194 /* HomeView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView2.swift; sourceTree = "<group>"; };
 		02C43D3729E1198C0009E194 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		0339BDC752897DCC9BD4B623 /* Pods-OCTranspoBusSchedule.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OCTranspoBusSchedule.debug.xcconfig"; path = "Target Support Files/Pods-OCTranspoBusSchedule/Pods-OCTranspoBusSchedule.debug.xcconfig"; sourceTree = "<group>"; };
@@ -132,12 +132,12 @@
 			children = (
 				02C43D2A29DBA8B20009E194 /* Info.plist */,
 				02C43CFA29DBA70C0009E194 /* OCTranspoBusScheduleApp.swift */,
+				02244A232B3DB8E5007597CD /* AppleMapsView.swift */,
 				02432EB729E27EA3006B8256 /* AppDelegate.swift */,
 				02C43D3729E1198C0009E194 /* MainTabView.swift */,
 				02C43D3529E118010009E194 /* HomeView2.swift */,
 				02C43D2D29DCBC8C0009E194 /* RoutePlannerView.swift */,
 				02432EB329E24EA9006B8256 /* GoogleMapsView.swift */,
-				02C43D2F29DCC0ED0009E194 /* RoutePlannerViewModel.swift */,
 				02C43D2629DBA79F0009E194 /* BusSchedule.swift */,
 				02C43D2829DBA7C20009E194 /* BusScheduleViewModel.swift */,
 				02C43CFC29DBA70C0009E194 /* ContentView.swift */,
@@ -471,9 +471,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				02432EB829E27EA3006B8256 /* AppDelegate.swift in Sources */,
-				02C43D3029DCC0ED0009E194 /* RoutePlannerViewModel.swift in Sources */,
 				02C43D2929DBA7C20009E194 /* BusScheduleViewModel.swift in Sources */,
 				02C43D2E29DCBC8C0009E194 /* RoutePlannerView.swift in Sources */,
+				02244A242B3DB8E5007597CD /* AppleMapsView.swift in Sources */,
 				02C43CFD29DBA70C0009E194 /* ContentView.swift in Sources */,
 				02C43D2C29DBD7C60009E194 /* LocationManager.swift in Sources */,
 				02C43D3629E118010009E194 /* HomeView2.swift in Sources */,
@@ -567,7 +567,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -621,7 +621,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -645,7 +645,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OCTranspoBusSchedule/Info.plist;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "To provide real-time bus schedule updates and notifications for nearby bus stops.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "To show nearby bus stops and provide real-time bus schedule updates.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "To provide real-time bus schedule updates and notifications for nearby bus stops.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -678,7 +678,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OCTranspoBusSchedule/Info.plist;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "To provide real-time bus schedule updates and notifications for nearby bus stops.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "To show nearby bus stops and provide real-time bus schedule updates.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "To provide real-time bus schedule updates and notifications for nearby bus stops.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

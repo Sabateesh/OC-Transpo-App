@@ -10,30 +10,29 @@ import Combine
 import CoreLocation
 
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
-    
     @Published var userLocation: CLLocation? = nil
-    var locationManager: CLLocationManager
-    
+    private let locationManager = CLLocationManager()
+
     override init() {
-        locationManager = CLLocationManager()
         super.init()
         locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
     }
-    
+
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
         userLocation = location
     }
-    
+
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         switch manager.authorizationStatus {
         case .authorizedWhenInUse, .authorizedAlways:
-            locationManager.startUpdatingLocation() // Move this line here
-        case .notDetermined, .restricted, .denied:
-            break
-        @unknown default:
+            locationManager.startUpdatingLocation()
+        default:
             break
         }
     }
 }
+

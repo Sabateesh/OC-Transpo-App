@@ -22,13 +22,13 @@ struct MainTabView: View {
                 .tabItem {
                     Label("Route Planner", systemImage: "figure.walk")
                 }
-            
-            GoogleMapsView()
-                .tabItem {
-                    Label("Google Maps", systemImage: "map.circle.fill")
+
+            AppleMapView()
+                .tabItem{
+                    Label("Maps", systemImage: "map.circle.fill")
                 }
                 .environmentObject(locationManager)
-        }
+            }
         .sheet(isPresented: $viewModel.isPresentingHomeView) {
             HomeView()
         }

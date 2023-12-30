@@ -8,6 +8,7 @@ import SwiftUI
 
 @main
 struct OCTranspoBusScheduleApp: App {
+    @StateObject private var locationManager = LocationManager()
     @StateObject private var viewModel = BusScheduleViewModel()
        @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
@@ -15,6 +16,8 @@ struct OCTranspoBusScheduleApp: App {
            WindowGroup {
                MainTabView()
                    .environmentObject(viewModel)
+                   .environmentObject(locationManager)
+
            }
        }
 }
