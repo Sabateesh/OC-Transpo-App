@@ -5,9 +5,6 @@
 //  Created by Sabateesh Sivakumar on 2023-04-04.
 //  BETA FEATURE STILL IN WORKS
 //
-
-
-
 import SwiftUI
 import MapKit
 
@@ -24,6 +21,7 @@ struct RoutePlannerView: View {
 
 
 
+    
     var body: some View {
         VStack {
             TextField("Enter Destination", text: $destination, onEditingChanged: { _ in

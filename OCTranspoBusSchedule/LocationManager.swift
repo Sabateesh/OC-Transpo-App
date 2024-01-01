@@ -34,5 +34,9 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
             break
         }
     }
+    
+    func getCurrentLocation() -> CLLocationCoordinate2D? {
+            return locationManager.location?.coordinate
+    }
 }
 

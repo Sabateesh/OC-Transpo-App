@@ -17,13 +17,14 @@ struct MainTabView: View {
                 .tabItem {
                     Label("Bus Schedule", systemImage: "bus")
                 }
+                .environmentObject(locationManager)
             
             RoutePlannerView()
                 .tabItem {
                     Label("Route Planner", systemImage: "figure.walk")
                 }
 
-            AppleMapView()
+            AppleMapView(locationManager: locationManager)
                 .tabItem{
                     Label("Maps", systemImage: "map.circle.fill")
                 }
