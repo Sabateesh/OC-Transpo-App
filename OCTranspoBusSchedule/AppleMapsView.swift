@@ -8,7 +8,7 @@ import SwiftUI
 import MapKit
 import CoreLocation
 
-struct BusStop: Identifiable, Equatable, Hashable {
+struct BusStop: Identifiable {
     let id: String
     let code: String
     let name: String
@@ -20,20 +20,6 @@ struct BusStop: Identifiable, Equatable, Hashable {
         self.name = name
         self.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
-
-    static func ==(lhs: BusStop, rhs: BusStop) -> Bool {
-        return lhs.id == rhs.id && lhs.code == rhs.code && lhs.name == rhs.name &&
-               lhs.coordinate.latitude == rhs.coordinate.latitude && lhs.coordinate.longitude == rhs.coordinate.longitude
-    }
-    
-    // Hashable conformance
-       static func === (lhs: BusStop, rhs: BusStop) -> Bool {
-           lhs.id == rhs.id
-       }
-
-       func hash(into hasher: inout Hasher) {
-           hasher.combine(id)
-       }
 }
 
 struct AppleMapView: View {
@@ -43,7 +29,7 @@ struct AppleMapView: View {
         span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
     )
     @State public var busStops: [BusStop] = []
-    @State private var selectedBusStop: BusStop? // Managed internally
+    @State private var selectedBusStop: BusStop?
 
 
 

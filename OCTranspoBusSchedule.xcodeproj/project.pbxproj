@@ -8,8 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		02244A242B3DB8E5007597CD /* AppleMapsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02244A232B3DB8E5007597CD /* AppleMapsView.swift */; };
-		02432EB429E24EA9006B8256 /* GoogleMapsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02432EB329E24EA9006B8256 /* GoogleMapsView.swift */; };
-		02432EB829E27EA3006B8256 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02432EB729E27EA3006B8256 /* AppDelegate.swift */; };
+		02660E792B43BD3D003DCFD7 /* RSSFEED.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02660E782B43BD3D003DCFD7 /* RSSFEED.swift */; };
 		02C43CFB29DBA70C0009E194 /* OCTranspoBusScheduleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C43CFA29DBA70C0009E194 /* OCTranspoBusScheduleApp.swift */; };
 		02C43CFD29DBA70C0009E194 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C43CFC29DBA70C0009E194 /* ContentView.swift */; };
 		02C43CFF29DBA70D0009E194 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02C43CFE29DBA70D0009E194 /* Assets.xcassets */; };
@@ -47,8 +46,7 @@
 
 /* Begin PBXFileReference section */
 		02244A232B3DB8E5007597CD /* AppleMapsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMapsView.swift; sourceTree = "<group>"; };
-		02432EB329E24EA9006B8256 /* GoogleMapsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsView.swift; sourceTree = "<group>"; };
-		02432EB729E27EA3006B8256 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		02660E782B43BD3D003DCFD7 /* RSSFEED.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFEED.swift; sourceTree = "<group>"; };
 		02C43CF729DBA70C0009E194 /* OCTranspoBusSchedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OCTranspoBusSchedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02C43CFA29DBA70C0009E194 /* OCTranspoBusScheduleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCTranspoBusScheduleApp.swift; sourceTree = "<group>"; };
 		02C43CFC29DBA70C0009E194 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -133,15 +131,14 @@
 				02C43D2A29DBA8B20009E194 /* Info.plist */,
 				02C43CFA29DBA70C0009E194 /* OCTranspoBusScheduleApp.swift */,
 				02244A232B3DB8E5007597CD /* AppleMapsView.swift */,
-				02432EB729E27EA3006B8256 /* AppDelegate.swift */,
 				02C43D3729E1198C0009E194 /* MainTabView.swift */,
 				02C43D3529E118010009E194 /* HomeView2.swift */,
 				02C43D2D29DCBC8C0009E194 /* RoutePlannerView.swift */,
-				02432EB329E24EA9006B8256 /* GoogleMapsView.swift */,
 				02C43D2629DBA79F0009E194 /* BusSchedule.swift */,
 				02C43D2829DBA7C20009E194 /* BusScheduleViewModel.swift */,
 				02C43CFC29DBA70C0009E194 /* ContentView.swift */,
 				02C43D2B29DBD7C60009E194 /* LocationManager.swift */,
+				02660E782B43BD3D003DCFD7 /* RSSFEED.swift */,
 				02C43CFE29DBA70D0009E194 /* Assets.xcassets */,
 				02C43D0029DBA70D0009E194 /* Preview Content */,
 			);
@@ -470,14 +467,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02432EB829E27EA3006B8256 /* AppDelegate.swift in Sources */,
 				02C43D2929DBA7C20009E194 /* BusScheduleViewModel.swift in Sources */,
 				02C43D2E29DCBC8C0009E194 /* RoutePlannerView.swift in Sources */,
+				02660E792B43BD3D003DCFD7 /* RSSFEED.swift in Sources */,
 				02244A242B3DB8E5007597CD /* AppleMapsView.swift in Sources */,
 				02C43CFD29DBA70C0009E194 /* ContentView.swift in Sources */,
 				02C43D2C29DBD7C60009E194 /* LocationManager.swift in Sources */,
 				02C43D3629E118010009E194 /* HomeView2.swift in Sources */,
-				02432EB429E24EA9006B8256 /* GoogleMapsView.swift in Sources */,
 				02C43D2729DBA79F0009E194 /* BusSchedule.swift in Sources */,
 				02C43CFB29DBA70C0009E194 /* OCTranspoBusScheduleApp.swift in Sources */,
 				02C43D3829E1198C0009E194 /* MainTabView.swift in Sources */,

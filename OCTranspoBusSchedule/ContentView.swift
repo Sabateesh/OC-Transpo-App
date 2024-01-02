@@ -21,6 +21,8 @@ struct ContentView: View {
     @Environment(\.colorScheme) var colorScheme
     @State private var isSnowing = true
     @State private var appleMapView: AppleMapView
+    @StateObject private var rssFeedViewModel = RSSFeedViewModel()
+
 
        init() {
            let locationManager = LocationManager()
@@ -61,7 +63,6 @@ struct ContentView: View {
                 VStack {
                     VStack {
                         AppleMapView(locationManager: locationManager)
-                                            .hidden()
                         
                         TextField("Enter Stop Number", text: $stopNumber)
                             .padding()
@@ -242,6 +243,8 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView().environmentObject(LocationManager())
     }
+    
+
 }
 /*
  import Combine

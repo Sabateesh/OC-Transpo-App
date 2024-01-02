@@ -10,7 +10,6 @@ import SwiftUI
 struct OCTranspoBusScheduleApp: App {
     @StateObject private var locationManager = LocationManager()
     @StateObject private var viewModel = BusScheduleViewModel()
-       @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
        var body: some Scene {
            WindowGroup {
