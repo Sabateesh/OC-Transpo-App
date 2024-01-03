@@ -64,7 +64,7 @@ struct ContentView: View {
             ZStack {
                 VStack {
                     VStack {
-                        AppleMapView(locationManager: locationManager)
+                        AppleMapView(locationManager: locationManager)                      
                         
                         TextField("Enter Stop Number", text: $stopNumber)
                             .padding()
@@ -156,14 +156,14 @@ struct ContentView: View {
                 }
                 .overlay(
                     Group {
-                        if colorScheme == .dark && isSnowing {
+                        if colorScheme == .dark && isSnowing && !iPad{
                             SnowfallView(snowflakes: 200, screenSize: UIScreen.main.bounds.size)
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                                 .allowsHitTesting(false)
                         }
                     }
                 )
-                .navigationBarItems(leading:
+                /*.navigationBarItems(leading:
                                     Button(action: {
                                         withAnimation {
                                             viewModel.isPresentingHomeView.toggle()
@@ -174,13 +174,31 @@ struct ContentView: View {
                                             .scaledToFit()
                                             .frame(height: 50)
                                     }
-                                )
+                                )*/
+                                .navigationBarItems(leading: navigationBarLeadingButton)
                                 .onAppear {
                                     locationManagerInstance.requestWhenInUseAuthorization()
                                 }
             }
         }
+        .navigationViewStyle(StackNavigationViewStyle()) // Apply this directly to NavigationView
+
     }
+    
+    
+    var navigationBarLeadingButton: some View {
+            Button(action: {
+                withAnimation {
+                    viewModel.isPresentingHomeView.toggle()
+                }
+            }) {
+            }
+        }
+    
+    var iPad: Bool {
+            UIDevice.current.userInterfaceIdiom == .pad
+        }
+    
     var smallerScreen: Bool {
             UIScreen.main.bounds.width < 375
         }

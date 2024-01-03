@@ -36,9 +36,9 @@ struct EquatableRegion: Equatable {
 
 struct AppleMapView: View {
     var locationManager: LocationManager
-        @State private var region = EquatableRegion(region: MKCoordinateRegion(
+        @State public var region = EquatableRegion(region: MKCoordinateRegion(
             center: CLLocationCoordinate2D(latitude: 45.4215, longitude: -75.6972),
-            span: MKCoordinateSpan(latitudeDelta: 0.007, longitudeDelta: 0.007)
+            span: MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001)
         ))
         @State public var busStops: [BusStop] = []
         @State private var selectedBusStop: BusStop?
@@ -75,7 +75,7 @@ struct AppleMapView: View {
 
     private func updateRegionToUserLocation() {
         if let userLocation = locationManager.userLocation {
-            let newRegion = MKCoordinateRegion(center: userLocation.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.007, longitudeDelta: 0.007))
+            let newRegion = MKCoordinateRegion(center: userLocation.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001))
             region = EquatableRegion(region: newRegion)
         }
     }
