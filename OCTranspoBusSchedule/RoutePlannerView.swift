@@ -32,12 +32,10 @@ struct RoutePlannerView: View {
             .onChange(of: destination, perform: { value in
                 searchCompleter.queryFragment = value
                 if value.isEmpty || value != destination {
-                    // Reset the showDirections when the query changes
                     showDirections = false
                 }
             })
             
-            // Only display auto-complete results when there's an active search
             if !destination.isEmpty && !showDirections {
                             List(completerResults, id: \.self) { result in
                                 Text(result.title)
@@ -66,9 +64,9 @@ struct RoutePlannerView: View {
                 }
 
                 // Show directions list
-                List(directions, id: \.self) { direction in
-                    Text(direction).padding()
-                }
+                //List(directions, id: \.self) { direction in
+                //    Text(direction).padding()
+               // }
             }
         }
         .onAppear {

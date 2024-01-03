@@ -22,21 +22,32 @@ struct BusStop: Identifiable {
     }
 }
 
+struct EquatableRegion: Equatable {
+    var region: MKCoordinateRegion
+
+    static func ==(lhs: EquatableRegion, rhs: EquatableRegion) -> Bool {
+        return lhs.region.center.latitude == rhs.region.center.latitude &&
+               lhs.region.center.longitude == rhs.region.center.longitude &&
+               lhs.region.span.latitudeDelta == rhs.region.span.latitudeDelta &&
+               lhs.region.span.longitudeDelta == rhs.region.span.longitudeDelta
+    }
+}
+
+
 struct AppleMapView: View {
     var locationManager: LocationManager
-    @State private var region = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 45.4215, longitude: -75.6972),
-        span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-    )
-    @State public var busStops: [BusStop] = []
-    @State private var selectedBusStop: BusStop?
-
+        @State private var region = EquatableRegion(region: MKCoordinateRegion(
+            center: CLLocationCoordinate2D(latitude: 45.4215, longitude: -75.6972),
+            span: MKCoordinateSpan(latitudeDelta: 0.007, longitudeDelta: 0.007)
+        ))
+        @State public var busStops: [BusStop] = []
+        @State private var selectedBusStop: BusStop?
 
 
     
     var body: some View {
         ZStack {
-            Map(coordinateRegion: $region, annotationItems: busStops) { busStop in
+            Map(coordinateRegion: $region.region, annotationItems: busStops) { busStop in
                 MapAnnotation(coordinate: busStop.coordinate) {
                     Button(action: {
                         print("Bus stop tapped: \(busStop.name)")
@@ -46,7 +57,13 @@ struct AppleMapView: View {
                     }
                 }
             }
-            .onAppear(perform: fetchBusStops)
+            .onChange(of: region) { newRegion in
+                            fetchBusStops(in: newRegion.region)
+            }
+            .onAppear(perform: {
+                            updateRegionToUserLocation()
+            })
+            
             if let selectedStop = selectedBusStop {
                 BusStopInfoView(busStop: selectedStop)
                     .position(x: UIScreen.main.bounds.width / 2, y: 150)
@@ -58,15 +75,29 @@ struct AppleMapView: View {
 
     private func updateRegionToUserLocation() {
         if let userLocation = locationManager.userLocation {
-            region = MKCoordinateRegion(center: userLocation.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02))
+            let newRegion = MKCoordinateRegion(center: userLocation.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.007, longitudeDelta: 0.007))
+            region = EquatableRegion(region: newRegion)
         }
     }
 
-    private func fetchBusStops() {
+
+    private func fetchBusStops(in region: MKCoordinateRegion) {
+        _ = region.center
         print("Fetching bus stops...")
         let apiKey = "be504de1abdc88e8ba10d4d7e2f12830"
         let appId = "274ad2e6"
-        let urlString = "https://api.octranspo1.com/v2.0/Gtfs?appID=\(appId)&apiKey=\(apiKey)&table=stops&format=json"
+        
+        
+        let northEastCorner = CLLocationCoordinate2D(
+                latitude: region.center.latitude + (region.span.latitudeDelta / 2.0),
+                longitude: region.center.longitude + (region.span.longitudeDelta / 2.0)
+            )
+            let southWestCorner = CLLocationCoordinate2D(
+                latitude: region.center.latitude - (region.span.latitudeDelta / 2.0),
+                longitude: region.center.longitude - (region.span.longitudeDelta / 2.0)
+            )
+
+            let urlString = "https://api.octranspo1.com/v2.0/Gtfs?appID=\(appId)&apiKey=\(apiKey)&table=stops&format=json&neLat=\(northEastCorner.latitude)&neLon=\(northEastCorner.longitude)&swLat=\(southWestCorner.latitude)&swLon=\(southWestCorner.longitude)"
         guard let url = URL(string: urlString) else {
             print("Invalid URL")
             return

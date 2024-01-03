@@ -22,6 +22,8 @@ struct ContentView: View {
     @State private var isSnowing = true
     @State private var appleMapView: AppleMapView
     @StateObject private var rssFeedViewModel = RSSFeedViewModel()
+    @State private var textFieldPadding: CGFloat = 110
+
 
 
        init() {
@@ -69,10 +71,12 @@ struct ContentView: View {
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .keyboardType(.numberPad)
                             .frame(maxWidth: .infinity)
+                            .padding(.top, textFieldPadding)
 
                         Button(action: {
                             locationManagerInstance.requestWhenInUseAuthorization()
                             isSnowing = false
+                            textFieldPadding = 0
                             viewModel.fetchBusSchedules(stopNumber: stopNumber) { result in
                                 switch result {
                                 case .success(let stopLabelText):
@@ -125,11 +129,11 @@ struct ContentView: View {
 
                                                 ForEach(topSchedules.indices, id: \.self) { index in
                                                     if index > 0 {
-                                                        Text(" & ")
+                                                        Text("&")
                                                             .font(.footnote)
                                                     }
                                                     Text("\(topSchedules[index].arrivalTime)")
-                                                        .font(.footnote)
+                                                        .font(.title2)
                                                         .fixedSize()
                                                 }
                                             }
@@ -160,26 +164,28 @@ struct ContentView: View {
                     }
                 )
                 .navigationBarItems(leading:
-                    Button(action: {
-                        withAnimation {
-                            viewModel.isPresentingHomeView.toggle()
-                        }
-                    }) {
-                        Image(uiImage: UIImage(named: "OC_Transpo_Logo") ?? UIImage(systemName: "exclamationmark.circle")!)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 50)
-                    }
-                )
-                .padding(.top)
-
-                .onAppear {
-                    locationManagerInstance.requestWhenInUseAuthorization()
-                }
+                                    Button(action: {
+                                        withAnimation {
+                                            viewModel.isPresentingHomeView.toggle()
+                                        }
+                                    }) {
+                                        Image(uiImage: UIImage(named: "OC_Transpo_Logo") ?? UIImage(systemName: "exclamationmark.circle")!)
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(height: 50)
+                                    }
+                                )
+                                .onAppear {
+                                    locationManagerInstance.requestWhenInUseAuthorization()
+                                }
             }
         }
     }
+    var smallerScreen: Bool {
+            UIScreen.main.bounds.width < 375
+        }
 }
+
 
 
 struct Snowflake {
