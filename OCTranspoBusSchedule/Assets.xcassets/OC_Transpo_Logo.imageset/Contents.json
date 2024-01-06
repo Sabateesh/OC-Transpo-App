@@ -1,16 +1,17 @@
 {
   "images" : [
     {
+      "filename" : "OCTranspo-logo-mark 1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "OCTranspo-logo-mark 1.png",
+      "filename" : "OCTranspo-logo-mark.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "OCTranspo-logo-mark.png",
+      "filename" : "OCTranspo-logo-mark copy.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

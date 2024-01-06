@@ -23,6 +23,8 @@ struct ContentView: View {
     @State private var appleMapView: AppleMapView
     @StateObject private var rssFeedViewModel = RSSFeedViewModel()
     @State private var textFieldPadding: CGFloat = 110
+    @State private var hasSearched = false // New state variable
+
 
 
 
@@ -58,13 +60,23 @@ struct ContentView: View {
     }
 
 
+    private func dismissKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+
     
     var body: some View {
+        
+        
         NavigationView {
             ZStack {
                 VStack {
                     VStack {
-                        AppleMapView(locationManager: locationManager)                      
+                        if hasSearched {
+                            AppleMapView(locationManager: locationManager)
+                        }
+                        
+                        
                         
                         TextField("Enter Stop Number", text: $stopNumber)
                             .padding()
@@ -74,6 +86,7 @@ struct ContentView: View {
                             .padding(.top, textFieldPadding)
 
                         Button(action: {
+                            self.hasSearched = true
                             locationManagerInstance.requestWhenInUseAuthorization()
                             isSnowing = false
                             textFieldPadding = 0
@@ -85,6 +98,7 @@ struct ContentView: View {
                                     break
                                 }
                             }
+                            dismissKeyboard()
                         }) {
                             Text("Fetch Bus Schedules")
                                 .foregroundColor(.white)
@@ -94,64 +108,90 @@ struct ContentView: View {
                                 .cornerRadius(10)
                         }
                         .disabled(stopNumber.isEmpty)
+                        
+                        
                     }
                     .frame(maxWidth: .infinity)
-                    Button("Find Nearest Bus Stop") {
+                    /*Button("Find Nearest Bus Stop") {
                                 findNearestBusStop()
                             }
+                     */
+                    
+                    
+                    if !hasSearched {
+                            List(viewModel.favoriteStops, id: \.self) { stop in
+                                    Text("Favorite Stop: \(stopLabel) \(stop)")
+                            }
+                        
+                            }
                     VStack {
-                        Text("Stop: \(stopLabel)")
-                            .font(.headline)
-                            .padding(.bottom)
-                        List {
-                            ForEach(viewModel.busSchedules.keys.sorted(), id: \.self) { key in
-                                Section(header: Text(key).font(.headline)) {
-                                    let topSchedules = viewModel.busSchedules[key]!.prefix(2)
-
-                                    HStack {
-                                        Text(key)
-                                            .font(.largeTitle)
-                                            .bold()
-                                            .frame(width: 55, height: 55)
-                                            .background(Color.red)
-                                            .foregroundColor(.white)
-                                            .cornerRadius(10)
-                                            .padding(.trailing, 8)
-
-                                        VStack(alignment: .leading, spacing: 2) {
-                                            HStack {
-                                                Text("\(topSchedules.first?.destination ?? "N/A")")
-                                                    .font(.title3)
-                                                    .bold()
-                                                    .frame(width: 200, alignment: .leading)
-
-                                                Spacer()
-
-                                                ForEach(topSchedules.indices, id: \.self) { index in
-                                                    if index > 0 {
-                                                        Text("&")
-                                                            .font(.footnote)
+                        if !stopLabel.isEmpty{
+                            Button("Add Stop to Favorites") {
+                                    viewModel.addToFavorites(stopNumber: stopNumber)
+                                }
+                                .padding(.horizontal, 40)
+                                .padding(.vertical, 10)
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                            Text("Stop: \(stopLabel)")
+                                .font(.headline)
+                                .padding(.bottom)
+                            List {
+                                ForEach(viewModel.busSchedules.keys.sorted(), id: \.self) { key in
+                                    Section(header: Text(key).font(.headline)) {
+                                        let topSchedules = viewModel.busSchedules[key]!.prefix(2)
+                                        
+                                        HStack {
+                                            Text(key)
+                                                .font(.largeTitle)
+                                                .bold()
+                                                .frame(width: 55, height: 55)
+                                                .background(Color.red)
+                                                .foregroundColor(.white)
+                                                .cornerRadius(10)
+                                                .padding(.trailing, 8)
+                                            
+                                            VStack(alignment: .leading, spacing: 2) {
+                                                HStack {
+                                                    Text("\(topSchedules.first?.destination ?? "N/A")")
+                                                        .font(.title3)
+                                                        .bold()
+                                                        .frame(width: 200, alignment: .leading)
+                                                    
+                                                    Spacer()
+                                                    
+                                                    ForEach(topSchedules.indices, id: \.self) { index in
+                                                        if index > 0 {
+                                                            Text("&")
+                                                                .font(.footnote)
+                                                        }
+                                                        Text("\(topSchedules[index].arrivalTime)")
+                                                            .font(.title2)
+                                                            .fixedSize()
                                                     }
-                                                    Text("\(topSchedules[index].arrivalTime)")
-                                                        .font(.title2)
-                                                        .fixedSize()
                                                 }
                                             }
                                         }
                                     }
                                 }
                             }
+                            
                         }
                         
                     }
+                    
+                    
                     if !viewModel.isBusScheduleFetched {
+                        
                         Image("Ologo")
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 500, height: 500)
-                            .offset(x: 125, y: 175)
+                            .frame(width: 300, height: 300)
+                            .offset(x: 135, y: 175)
+                        
                     }
-
+                    
                     Spacer()
                 }
                 .overlay(
@@ -163,18 +203,15 @@ struct ContentView: View {
                         }
                     }
                 )
-                /*.navigationBarItems(leading:
+                .navigationBarItems(leading:
                                     Button(action: {
-                                        withAnimation {
-                                            viewModel.isPresentingHomeView.toggle()
-                                        }
                                     }) {
                                         Image(uiImage: UIImage(named: "OC_Transpo_Logo") ?? UIImage(systemName: "exclamationmark.circle")!)
                                             .resizable()
                                             .scaledToFit()
                                             .frame(height: 50)
                                     }
-                                )*/
+                                )
                                 .navigationBarItems(leading: navigationBarLeadingButton)
                                 .onAppear {
                                     locationManagerInstance.requestWhenInUseAuthorization()

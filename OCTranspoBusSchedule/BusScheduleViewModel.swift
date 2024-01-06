@@ -7,11 +7,36 @@ import MapKit
 import CoreLocation
 import UIKit
 
+
 class BusScheduleViewModel: ObservableObject {
     @Published var busSchedules: [String: [BusSchedule]] = [:]
     private var cancellables = Set<AnyCancellable>()
     @Published var isPresentingHomeView = false
     @Published var isBusScheduleFetched: Bool = false
+    @Published var favoriteStops: [String]
+    
+    init() {
+            if let savedStops = UserDefaults.standard.object(forKey: "FavoriteStops") as? [String] {
+                self.favoriteStops = savedStops
+            } else {
+                self.favoriteStops = []
+            }
+        }
+
+    
+    
+    func addToFavorites(stopNumber: String) {
+            if !favoriteStops.contains(stopNumber) {
+                favoriteStops.append(stopNumber)
+                saveFavorites()
+            }
+        }
+
+    private func saveFavorites() {
+            UserDefaults.standard.set(favoriteStops, forKey: "FavoriteStops")
+        }
+
+
 
     func fetchBusSchedules(stopNumber: String, completion: @escaping (Result<String, Error>) -> Void) {
         let apiKey = "be504de1abdc88e8ba10d4d7e2f12830"
@@ -23,11 +48,17 @@ class BusScheduleViewModel: ObservableObject {
             return
         }
 
+      
+        
         URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data, error == nil else {
                 print("Error fetching bus schedules: \(error?.localizedDescription ?? "Unknown error")")
+
                 return
             }
+            if let jsonString = String(data: data, encoding: .utf8) {
+                       print("Received JSON: \(jsonString)")
+                   }
 
             do {
                 let decoder = JSONDecoder()
@@ -42,6 +73,7 @@ class BusScheduleViewModel: ObservableObject {
             } catch {
                 print("Error decoding bus schedules: \(error.localizedDescription)")
                 completion(.failure(error))
+            
             }
             DispatchQueue.main.async {
                 self.isBusScheduleFetched = true
