@@ -1,0 +1,34 @@
+name: Refresh bundled timetable
+on:
+  schedule:
+    - cron: '17 9 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  refresh:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare current GTFS
+        run: bash Tests/refresh-bundled-timetable.sh
+      - name: Open or update timetable pull request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if git diff --quiet -- OCTranspo/BundledTimetable.transit OCTranspo/BundledTimetable.version; then
+            echo "Bundled timetable already matches the published feed."
+            exit 0
+          fi
+          branch=automation/timetable-refresh
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin "refs/heads/$branch:refs/remotes/origin/$branch" || true
+          git switch -C "$branch"
+          git add OCTranspo/BundledTimetable.transit OCTranspo/BundledTimetable.version
+          git commit -m "Refresh bundled OC Transpo timetable"
+          git push --force-with-lease origin "HEAD:refs/heads/$branch"
+          if [ -z "$(gh pr list --head "$branch" --state open --json number --jq '.[0].number')" ]; then
+            gh pr create --head "$branch" --title "Refresh bundled OC Transpo timetable" --body "Update the prepared timetable from the current public GTFS feed. The preparation script validates the service window and packed feed before writing either resource."
+          fi

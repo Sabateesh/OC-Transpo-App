@@ -1,0 +1,27 @@
+.DS_Store
+**/.DS_Store
+
+# Xcode user settings and build output
+**/xcuserdata/
+DerivedData/
+.build/
+.swiftpm/
+build/
+*.xcresult
+*.xcactivitylog
+*.xcarchive
+*.hmap
+*.ipa
+*.dSYM/
+
+# Local credentials and signing files
+Shared/Secrets.swift
+Config/Local.xcconfig
+Config/Secrets.xcconfig
+.env
+.env.*
+*.p12
+*.mobileprovision
+
+# Local test output
+Tests/Evidence/
