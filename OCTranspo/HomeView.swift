@@ -17,15 +17,27 @@ struct HomeTab: View {
     @State private var newName = ""
     @State private var choosingOrigin = false
     @State private var startingPoint: Destination?
+    @State private var showingAbout = false
 
     var body: some View {
         NavigationStack(path: $path) {
             VStack(spacing: 0) {
                 VStack(alignment: .leading, spacing: 14) {
                     if !searching && query.isEmpty {
-                        Text("Plan a trip")
-                            .font(.system(.largeTitle, design: .rounded, weight: .bold))
-                            .accessibilityAddTraits(.isHeader)
+                        HStack {
+                            Text("Plan a trip")
+                                .font(.system(.largeTitle, design: .rounded, weight: .bold))
+                                .accessibilityAddTraits(.isHeader)
+                            Spacer()
+                            Button {
+                                showingAbout = true
+                            } label: {
+                                Image(systemName: "info.circle")
+                                    .font(.title3)
+                                    .frame(width: 44, height: 44)
+                            }
+                            .accessibilityLabel("About and privacy")
+                        }
                     }
                     searchField
                     if !searching && query.isEmpty {
@@ -93,6 +105,9 @@ struct HomeTab: View {
             }
             .sheet(item: $selectedDestination) { destination in
                 DestinationView(destination: destination, startingPoint: startingPoint)
+            }
+            .sheet(isPresented: $showingAbout) {
+                AboutView()
             }
         }
     }
@@ -279,6 +294,35 @@ struct HomeTab: View {
             }
         }
         return closest.values.sorted { ($0.distance, $0.upcoming.times[0]) < ($1.distance, $1.upcoming.times[0]) }
+    }
+}
+
+private struct AboutView: View {
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        NavigationStack {
+            List {
+                Section {
+                    Text("Plan trips and follow OC Transpo service using public transit data. This independent app is not affiliated with OC Transpo or the City of Ottawa.")
+                }
+                Section("Information") {
+                    Link("Privacy Policy", destination: URL(string: "https://github.com/Sabateesh/OC-Transpo-App/blob/main/docs/PRIVACY.md")!)
+                    Link("Support", destination: URL(string: "https://github.com/Sabateesh/OC-Transpo-App/issues")!)
+                }
+                Section {
+                    Text("Version \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "—")")
+                        .foregroundStyle(.secondary)
+                }
+            }
+            .navigationTitle("About")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Done") { dismiss() }
+                }
+            }
+        }
     }
 }
 

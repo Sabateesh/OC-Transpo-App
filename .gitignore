@@ -25,3 +25,14 @@ Config/Secrets.xcconfig
 
 # Local test output
 Tests/Evidence/
+/docs
+OCTranspo/Assets.xcassets/AppIcon.appiconset/appstore.png
+Release/Branding/independent-icon.png
+Release/Screenshots/ipad-pro-13-home.png
+Release/Screenshots/ipad-pro-13-map.png
+Release/Screenshots/iphone-17-pro-alerts.png
+Release/Screenshots/iphone-17-pro-home.png
+Release/Screenshots/iphone-17-pro-map.png
+OCTranspo/Assets.xcassets/AppIcon.appiconset/appstore.png
+/OCTranspo
+Release/AppStore-2.0.md
